@@ -1,0 +1,88 @@
+##################################################################################################
+# Back service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-siniestro
+  labels:
+    app: api-siniestro
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 3333
+    name: http
+    protocol: TCP
+  selector:
+    app: api-siniestro
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: api-siniestro
+  labels:
+    app: api-siniestro
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-siniestro
+  template:
+    metadata:
+      labels:
+        app: api-siniestro
+        version: v1
+    spec:
+      containers:
+      - name: api-siniestro
+        image: ingaragon/examplesiniestro:0.0.2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3333
+          name: api-siniestro
+---
+##################################################################################################
+# Back service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-catalogo
+  labels:
+    app: api-catalogo
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 3333
+    name: http
+    protocol: TCP
+  selector:
+    app: api-catalogo
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: api-catalogo
+  labels:
+    app: api-catalogo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-catalogo
+  template:
+    metadata:
+      labels:
+        app: api-catalogo
+        version: v1
+    spec:
+      containers:
+      - name: api-catalogo
+        image: ingaragon/examplecatalogos:0.0.2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3333
+          name: api-catalogo
+---

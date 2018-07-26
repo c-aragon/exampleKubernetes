@@ -8,7 +8,6 @@ metadata:
   labels:
     app: api-siniestro
 spec:
-#  type: LoadBalancer
   ports:
   - port: 80
     targetPort: 3333
@@ -52,7 +51,6 @@ metadata:
   labels:
     app: api-catalogo
 spec:
-#  type: LoadBalancer
   ports:
   - port: 80
     targetPort: 3333
